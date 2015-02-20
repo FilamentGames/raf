@@ -34,11 +34,7 @@ if(!raf || !caf) {
         queue.length = 0
         for(var i = 0; i < cp.length; i++) {
           if(!cp[i].cancelled) {
-            try{
-              cp[i].callback(last)
-            } catch(e) {
-              setTimeout(function() { throw e }, 0)
-            }
+            cp[i].callback(last)
           }
         }
       }, Math.round(next))
@@ -68,11 +64,7 @@ module.exports = function(fn) {
     return raf.call(global, fn)
   }
   return raf.call(global, function() {
-    try{
-      fn.apply(this, arguments)
-    } catch(e) {
-      setTimeout(function() { throw e }, 0)
-    }
+    fn.apply(this, arguments)
   })
 }
 module.exports.cancel = function() {
